@@ -1,7 +1,7 @@
 //Tic Tac Toe
 //(c) Valentin, 2016
 
-const int LEDPins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
+const int  = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
 const int LEDPos[] = {0, 0, 0,/**/ 0, 0, 0,/**/ 0, 0, 0};
 const int ButtonPins[] = {11, 12, 13}; //D11 - D13
                                        //D11 & D12 are for selection, D13 is for confirmation
@@ -175,6 +175,28 @@ void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
  if (digitalRead(ButtonPins[1] == HIGH) { SelectLED(2); }
  if (digitalRead(ButtonPins[2] == HIGH) { SetLED(); }
  
- for (int i=0; i<9; i++) //Set all LEDs as OUTPUT and turn them off, assuming they are turned on.
+ for (int i=0; i<9; i++)
  {
+  if ([LEDVals[i] == 1) 
+  {
+   digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
+   delay(500);                        //Wait 0.5 seconds
+   digitalWrite(LEDPins[i], LOW);
+   delay(500);
+  }
+  else if ([LEDVals[i] == 3) 
+  {
+   digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
+   delay(250);                        //Wait 0.25 seconds
+   digitalWrite(LEDPins[i], LOW);
+   delay(250);
+  }
+  else if ([LEDVals[i] == 2 || 4) 
+  {
+   digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
+   delay(1000);                    //Wait 1 second
+   digitalWrite(LEDPins[i], LOW);
+   delay(1000);
+  }
+ }
 }
