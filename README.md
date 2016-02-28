@@ -8,7 +8,7 @@ The **X** after the D/A mark the number of the Pin.
 Players are referred to as **PX**. The **X** is replaced by either a **1** or a **2**, indicating which player is being referenced.
 
 ##Components
-The components utilized in this project are **9** green LEDs with **2,9V** - **3,5V** @ **20mA** with a corresponding **470Ω** resistor, **3** generic buttons.
+The components utilized in this project are **9** green LEDs with **2,9V** - **3,5V** @ **20mA** with a corresponding **470Ω** resistor and **3** generic buttons.
 
 A 5V USB Power-Source is used.
 
@@ -18,6 +18,6 @@ The value on the **left** defines the Pin on the arduino and the value on the **
 
 | Row 1 | Row 2 | Row 3 |
 |:-----:|:-----:|:-----:|
-| D8, 6 | D9, 7 | D10, 8 |
-| D5, 3 | D6, 4 | D7, 5 |
-| D2, 0 | D3, 1 | D4, 2 |
+| D8 **[6]** | D9 **[7]** | D10 **[8]** |
+| D5 **[3]** | D6 **[4]** | D7 **[5]** |
+| D2 **[0]** | D3 **[1]** | D4 **[2]** |
