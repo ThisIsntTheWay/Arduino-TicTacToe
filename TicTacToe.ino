@@ -175,39 +175,40 @@ void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
 }
 //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
 
-void SetLED();
+void SetLED()
 {
   if (LEDVals[Pos] == 2) { LEDVals[Pos] = 1; }
   else if (LEDVals[Pos] == 4) {LEDVals[Pos] = 3; }
-  if ( Player = false) { Player = true; }
+  if ( Player = false ) { Player = true; }
   else { Player = false; }
 }
 
 void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
 {
- GridCheck();
+ if (Player = false ) { GridCheck(1); }
+ else { GridCheck(3); }
  
- if (digitalRead(ButtonPins[0] == HIGH) { SelectLED(1); }
- if (digitalRead(ButtonPins[1] == HIGH) { SelectLED(2); }
- if (digitalRead(ButtonPins[2] == HIGH) { SetLED(); }
+ if (digitalRead(ButtonPins[0] == HIGH)) { SelectLED(1); }
+ if (digitalRead(ButtonPins[1] == HIGH)) { SelectLED(2); }
+ if (digitalRead(ButtonPins[2] == HIGH)) { SetLED(); }
  
  for (int i=0; i<9; i++)
  {
-  if ([LEDVals[i] == 1) 
+  if (LEDVals[i] == 1) 
   {
    digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
    delay(500);                        //Wait 0.5 seconds
    digitalWrite(LEDPins[i], LOW);
    delay(500);
   }
-  else if ([LEDVals[i] == 3) 
+  else if (LEDVals[i] == 3) 
   {
    digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
    delay(250);                        //Wait 0.25 seconds
    digitalWrite(LEDPins[i], LOW);
    delay(250);
   }
-  else if ([LEDVals[i] == 2 || 4) 
+  else if (LEDVals[i] == 2 || 4) 
   {
    digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
    delay(1000);                    //Wait 1 second
