@@ -1,36 +1,41 @@
 //Tic Tac Toe
+//Some segments must be debugged.
 //(c) Valentin, 2016
 
 const int LEDPins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
 const int ButtonPins[] = {11, 12, 13}; //D11 - D13
                                        //D11 & D12 are for selection, D13 is for confirmation
-int LEDVals[] = {0, 0, 0, 0, 0, 0, 0, 0, 0}; //Set the values of the LEDs
-                                             //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P3)
+int LEDVals[] = {0, 0, 4, 0, 1, 0, 0, 2, 0}; //Set the values of the LEDs
+                                             //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
 int Up = 0;
 int Right = 0;
 int Pos = 0;
+int TPos = 0;
 
 bool Player = false; //false = P1, true = P2
 
 void setup()
 {
   Serial.begin(9600);
+  Serial.println("-------------------[INIT]-------------------");
   Serial.println("Serial data stream opened with 9600 bps.");
   Serial.println("Variables and Arrays have been set.");
   for (int i=0; i<9; i++) //Set all LEDs as OUTPUT and turn them off, assuming they are turned on.
   {
    pinMode(LEDPins[i], OUTPUT);
    digitalWrite(LEDPins[i], LOW);
-   Serial.println("LEDs have been set to OUTPUT and turned off.");
   }
   for (int i=0; i<3; i++) //Set all Buttons as INPUT
   {
    pinMode(ButtonPins[i], INPUT);
-   Serial.println("Buttons have been set to INPUT.");
-   Serial.println("The game is now ready to commence.");
   }
+  Serial.println("LEDs have been set to OUTPUT and turned off.");
+  Serial.println("Buttons have been set to INPUT.");
+  Serial.println("The game is now ready to commence.");
+  Serial.println("-------------------[END ]-------------------");
 }
 
+/*
 //The following 2 Functions will be used to "mark" a Player in possession of an LED. Since only unicolour LEDs are being used, the LEDs will just blink in a set interval.
 void LEDMarkP1(int LPos) //Mark P1 in Possession of an LED.
 { digitalWrite(LEDPins[LPos], HIGH); //'LPos' is used to reference which LED in the Array
@@ -49,6 +54,7 @@ void LEDMarkSel(int LPos3) //Mark a LED being selected
   delay(1000);                       //Wait 1 second
   digitalWrite(LEDPins[LPos3], LOW);
   delay(1000); }
+*/
 
 void WinAnimation(int Who) //"Animation" to play if either Player has won.
 {
@@ -151,25 +157,37 @@ void GridCheck(int PCheck) //Check LED matrix if any Player got 3 in a row
   //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P3)
 }
 
-void UpPos() {Pos = Up + Right; Serial.println("Position of selected LED updated."); }
+void UpPos() {Pos = Up + Right; Serial.println("Position Variable updated."); }
 
 void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
 {
   if (Dir == 1)
   {
-    if (Up > 3 ) { Up = 1; }
-    Up++;
-    UpPos();
-    if (Player = false) { LEDVals[Pos] = 2; }
-    else { LEDVals[Pos] = 4; }
+    if (Up < 3 ) { Up = 0; Serial.println("'Up' higher than 3, resetting to 0."); }
+    else if (Up > 3 )
+    {
+      Serial.println("[DEBUG] selected LED was moved up."); 
+      Up++;
+      UpPos();
+      Pos = TPos;
+      if (Player = false) { LEDVals[Pos] = 2; }
+      else { LEDVals[Pos] = 4; } 
+    }
+    if (TPos != Pos) { LEDVals[TPos - 1] = 0; Serial.println("[DEBUG] Last moved LED set to 0"); } //Overrides LED regardless of value and must be fixed. 
   }
   else
   {
-    if (Right > 3 ) { Right = 1; }
-    Right++;
-    UpPos();
-    if (Player = false) { LEDVals[Pos] = 2; }
-    else { LEDVals[Pos] = 4; }
+    if (Right < 3 ) { Right = 0; Serial.println("'Right' higher than 3, resetting to 0."); }
+    else if (Right > 3 )
+    {
+      Serial.println("[DEBUG] selected LED was moved to the right."); 
+      Right++;
+      UpPos();
+      Pos = TPos;
+      if (Player = false) { LEDVals[Pos] = 2;}
+      else { LEDVals[Pos] = 4; } 
+    }
+    if (TPos != Pos) { LEDVals[TPos - 1] = 0; Serial.println("[DEBUG] Last moved LED set to 0"); } //Overrides LED regardless of value and must be fixed.
   }
 }
 //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
@@ -184,36 +202,65 @@ void SetLED()
 
 void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
 {
- if (Player = false ) { GridCheck(1); }
- else { GridCheck(3); }
- 
- if (digitalRead(ButtonPins[0] == LOW)) { SelectLED(1); }
- if (digitalRead(ButtonPins[1] == LOW)) { SelectLED(2); }
- if (digitalRead(ButtonPins[2] == LOW)) { SetLED(); }
+ /*if (Player = false ) { GridCheck(1); }
+ else { GridCheck(3); }*/
+
+ //Buttons are creating a flood of input and must be fixed!
+ /*if (digitalRead(ButtonPins[0] == LOW)) { SelectLED(1); Serial.println("Button at D11 pressed."); }
+ if (digitalRead(ButtonPins[1] == LOW)) { SelectLED(2); Serial.println("Button at D12 pressed."); }
+ if (digitalRead(ButtonPins[2] == LOW)) { SetLED(); Serial.println("Button at D13 pressed."); }*/
  
  for (int i=0; i<9; i++)
  {
+  //First if-statement is being executed, no matter what the condition.
+  /*if (LEDVals[i] == 0) 
+  {
+   digitalWrite(LEDPins[i], LOW);
+   Serial.print("[DEBUG] Pin at D");
+   Serial.print(LEDPins[i]);
+   Serial.println(" turned OFF.");
+  }*/
   if (LEDVals[i] == 1) 
   {
    digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
-   delay(500);                        //Wait 0.5 seconds
+   delay(500);                     //Wait 0.5 seconds
    digitalWrite(LEDPins[i], LOW);
    delay(500);
+   Serial.print("[DEBUG] Pin at D");
+   Serial.print(LEDPins[i]);
+   Serial.println(" turned ON (P1).");
   }
   else if (LEDVals[i] == 3) 
   {
    digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
-   delay(250);                        //Wait 0.25 seconds
+   delay(250);                     //Wait 0.25 seconds
    digitalWrite(LEDPins[i], LOW);
    delay(250);
+   Serial.print("[DEBUG] Pin at D");
+   Serial.print(LEDPins[i]);
+   Serial.println(" turned ON (P2).");
   }
-  else if (LEDVals[i] == 2 || 4) 
+  else if (LEDVals[i] == 2)
   {
    digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
    delay(1000);                    //Wait 1 second
    digitalWrite(LEDPins[i], LOW);
    delay(1000);
+   Serial.print("[DEBUG] Pin at D");
+   Serial.print(LEDPins[i]);
+   Serial.println(" selected. (P1)");
+  }
+  else if (LEDVals[i] == 4)
+  {
+   digitalWrite(LEDPins[i], HIGH); //'LPos' is used to reference which LED in the Array
+   delay(1000);                    //Wait 1 second
+   digitalWrite(LEDPins[i], LOW);
+   delay(1000);
+   Serial.print("[DEBUG] Pin at D");
+   Serial.print(LEDPins[i]);
+   Serial.println(" selected. (P2)");
   }
  }
  delay(100);
+ Serial.println("[DEBUG] loop() finished.");
 }
