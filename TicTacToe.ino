@@ -2,7 +2,7 @@
 //(c) Valentin, 2016
 
 const int LEDPins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
-const int LEDPos[] = {0, 0, 0,/**/ 0, 0, 0,/**/ 0, 0, 0};
+const int LEDPos[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 const int ButtonPins[] = {11, 12, 13}; //D11 - D13
                                        //D11 & D12 are for selection, D13 is for confirmation
 int LEDVals[] = {0, 0, 0, 0, 0, 0, 0, 0, 0}; //Set the values of the LEDs
