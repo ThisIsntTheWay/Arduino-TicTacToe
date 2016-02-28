@@ -12,6 +12,7 @@ int Right = 0;
 int Pos = 0;
 
 bool Player; //false = P1, true = P2
+Player = false;
 
 Serial.printLn("Variables and Arrays have been set.");
 
@@ -162,12 +163,13 @@ void SetLED();
 {
   if (LEDVals[Pos] == 2) { LEDVals[Pos] = 1; }
   else if (LEDVals[Pos] == 4) {LEDVals[Pos] = 3; }
+  if ( Player = false) { Player = true; }
+  else { Player = false; }
 }
 
 void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
 {
  GridCheck();
- Player = false //Select P1
  
  if (digitalRead(ButtonPins[0] == HIGH) { SelectLED(1); }
  if (digitalRead(ButtonPins[1] == HIGH) { SelectLED(2); }
