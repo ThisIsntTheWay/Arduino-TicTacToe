@@ -1,5 +1,4 @@
 //Tic Tac Toe
-//This is a work in progress!
 //(c) Valentin, 2016
 
 const int LEDPins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
@@ -50,13 +49,34 @@ void WinAnimation(int Who) //"Animation" to play if either Player has won.
 {
  if (Who == 1) //If P1 won
  {
-  
+  for (int i=0; i<9; i++)
+  {
+    if (LEDVals[i] == 1)
+    {
+      digitalWrite(LEDPins[i], HIGH);
+    }
+    else
+    {
+      digitalWrite(LEDPins[i], LOW);
+    }
+  }
  }
  if (Who == 2) //If P2 won
  {
-  
+  for (int i=0; i<9; i++)
+  {
+    if (LEDVals[i] == 3)
+    {
+      digitalWrite(LEDPins[i], HIGH);
+    }
+    else
+    {
+      digitalWrite(LEDPins[i], LOW);
+    }
+  }
  }
 }
+
 
 void GridCheckP1() //Check LED matrix if P1 got 3 LEDs in a row.
 {
