@@ -2,7 +2,6 @@
 //(c) Valentin, 2016
 
 const int LEDPins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
-const int LEDPos[] = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 const int ButtonPins[] = {11, 12, 13}; //D11 - D13
                                        //D11 & D12 are for selection, D13 is for confirmation
 int LEDVals[] = {0, 0, 0, 0, 0, 0, 0, 0, 0}; //Set the values of the LEDs
@@ -188,9 +187,9 @@ void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
  if (Player = false ) { GridCheck(1); }
  else { GridCheck(3); }
  
- if (digitalRead(ButtonPins[0] == HIGH)) { SelectLED(1); }
- if (digitalRead(ButtonPins[1] == HIGH)) { SelectLED(2); }
- if (digitalRead(ButtonPins[2] == HIGH)) { SetLED(); }
+ if (digitalRead(ButtonPins[0] == LOW)) { SelectLED(1); }
+ if (digitalRead(ButtonPins[1] == LOW)) { SelectLED(2); }
+ if (digitalRead(ButtonPins[2] == LOW)) { SetLED(); }
  
  for (int i=0; i<9; i++)
  {
@@ -216,4 +215,5 @@ void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
    delay(1000);
   }
  }
+ delay(100);
 }
