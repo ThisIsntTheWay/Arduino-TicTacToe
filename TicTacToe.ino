@@ -1,7 +1,7 @@
 //Tic Tac Toe
 //(c) Valentin, 2016
 
-const int  = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
+const int LEDPins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
 const int LEDPos[] = {0, 0, 0,/**/ 0, 0, 0,/**/ 0, 0, 0};
 const int ButtonPins[] = {11, 12, 13}; //D11 - D13
                                        //D11 & D12 are for selection, D13 is for confirmation
@@ -11,25 +11,25 @@ int Up = 0;
 int Right = 0;
 int Pos = 0;
 
-bool Player; //false = P1, true = P2
-Player = false;
-
-Serial.printLn("Variables and Arrays have been set.");
+bool Player = false; //false = P1, true = P2
 
 void setup()
 {
+  Serial.begin(9600);
+  Serial.println("Serial data stream opened with 9600 bps.");
+  Serial.println("Variables and Arrays have been set.");
   for (int i=0; i<9; i++) //Set all LEDs as OUTPUT and turn them off, assuming they are turned on.
- {
-  pinMode(LEDPins[i], OUTPUT);
-  digitalWrite(LEDPins[i], LOW);
-  Serial.printLn("LEDs have been set to OUTPUT and turned off.");
- }
+  {
+   pinMode(LEDPins[i], OUTPUT);
+   digitalWrite(LEDPins[i], LOW);
+   Serial.println("LEDs have been set to OUTPUT and turned off.");
+  }
   for (int i=0; i<3; i++) //Set all Buttons as INPUT
- {
-  pinMode(ButtonPins[i], INPUT);
-  Serial.printLn("Buttons have been set to INPUT.");
-  Serial.printLn("The game is now ready to commence.");
- }
+  {
+   pinMode(ButtonPins[i], INPUT);
+   Serial.println("Buttons have been set to INPUT.");
+   Serial.println("The game is now ready to commence.");
+  }
 }
 
 //The following 2 Functions will be used to "mark" a Player in possession of an LED. Since only unicolour LEDs are being used, the LEDs will just blink in a set interval.
@@ -60,7 +60,7 @@ void WinAnimation(int Who) //"Animation" to play if either Player has won.
   digitalWrite(LEDPins[3], HIGH); //D5
   digitalWrite(LEDPins[5], HIGH); //D7
   digitalWrite(LEDPins[1], HIGH); //D3
-  Serial.printLn("Player 1 has won the game!");
+  Serial.println("Player 1 has won the game!");
  }
  if (Who == 2) //If P2 won, make a "X"
  {
@@ -70,7 +70,7 @@ void WinAnimation(int Who) //"Animation" to play if either Player has won.
   digitalWrite(LEDPins[8], HIGH); //D10
   digitalWrite(LEDPins[0], HIGH); //D2
   digitalWrite(LEDPins[2], HIGH); //D4
-  Serial.printLn("Player 2 has won the game!");
+  Serial.println("Player 2 has won the game!");
  }
 }
 
@@ -81,62 +81,78 @@ void GridCheck(int PCheck) //Check LED matrix if any Player got 3 in a row
   { if (LEDVals[1] == PCheck) 
    { if (LEDVals[2]  == PCheck) 
     WinAnimation(PCheck);
-    Serial.printLn("Player "+PCheck+" has 3 LEDs in a Row!");
+    Serial.print("Player ");
+    Serial.print(PCheck);
+    Serial.println(" has 3 LEDs in a Row!");
    }
   }
   else if (LEDVals[0] == PCheck) //D2, D5, D8
   { if (LEDVals[3] == PCheck)
    { if (LEDVals[6] == PCheck)
     WinAnimation(PCheck);
-    Serial.printLn("Player "+PCheck+" has 3 LEDs in a Row!");
+    Serial.print("Player ");
+    Serial.print(PCheck);
+    Serial.println(" has 3 LEDs in a Row!");
    }
   }
   else if (LEDVals[0] == PCheck) //D2, D6, D10
   { if (LEDVals[4] == PCheck)
    { if (LEDVals[8] == PCheck)
     WinAnimation(PCheck);
-    Serial.printLn("Player "+PCheck+" has 3 LEDs in a Row!");
+    Serial.print("Player ");
+    Serial.print(PCheck);
+    Serial.println(" has 3 LEDs in a Row!");
    }
   }
   else if (LEDVals[1] == PCheck) //D3, D6, D9
   { if (LEDVals[4] == PCheck)
    { if (LEDVals[7] == PCheck)
     WinAnimation(PCheck);
-    Serial.printLn("Player "+PCheck+" has 3 LEDs in a Row!");
+    Serial.print("Player ");
+    Serial.print(PCheck);
+    Serial.println(" has 3 LEDs in a Row!");
    }
   }
   else if (LEDVals[2] == PCheck) //D4, D7, D10
   { if (LEDVals[5] == PCheck)
    { if (LEDVals[8] == PCheck)
     WinAnimation(PCheck);
-    Serial.printLn("Player "+PCheck+" has 3 LEDs in a Row!");
+    Serial.print("Player ");
+    Serial.print(PCheck);
+    Serial.println(" has 3 LEDs in a Row!");
    }
   }
   else if (LEDVals[3] == PCheck) //D5, D6, D7
   { if (LEDVals[4] == PCheck)
    { if (LEDVals[5] == PCheck)
     WinAnimation(PCheck);
-    Serial.printLn("Player "+PCheck+" has 3 LEDs in a Row!");
+    Serial.print("Player ");
+    Serial.print(PCheck);
+    Serial.println(" has 3 LEDs in a Row!");
    }
   }
   else if (LEDVals[6] == PCheck) //D8, D9, D10
   { if (LEDVals[7] == PCheck)
    { if (LEDVals[8] == PCheck)
     WinAnimation(PCheck);
-    Serial.printLn("Player "+PCheck+" has 3 LEDs in a Row!");
+    Serial.print("Player ");
+    Serial.print(PCheck);
+    Serial.println(" has 3 LEDs in a Row!");
    }
   }
   else if (LEDVals[2] == PCheck) //D4, D6, D8
   { if (LEDVals[4] == PCheck)
    { if (LEDVals[6] == PCheck)
     WinAnimation(PCheck);
-    Serial.printLn("Player "+PCheck+" has 3 LEDs in a Row!");
+    Serial.print("Player ");
+    Serial.print(PCheck);
+    Serial.println(" has 3 LEDs in a Row!");
    }
   }
   //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P3)
 }
 
-void UpPos() {Pos = Up + Right; Serial.printLn("Position of selected LED updated."); }
+void UpPos() {Pos = Up + Right; Serial.println("Position of selected LED updated."); }
 
 void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
 {
