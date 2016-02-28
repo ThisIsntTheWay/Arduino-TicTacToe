@@ -37,12 +37,11 @@ void LEDMarkP2(int LPos2) //Mark P2 in Possession of an LED.
   delay(250);
 }
 
-void CheckButton(int Bnum) //Function to get buttonstate
+void CheckButton(int Bnum) //Function to get State of specified button
 {
-  buttonState = digitalRead(buttonPin)
+  buttonState = digitalRead(ButtonPins[Bnum])
 }
 
 void loop()
 {
-  buttonState = digitalRead(ButtonPins[x])
 }
