@@ -1,12 +1,13 @@
 //Tic Tac Toe
+//This is a work in progress!
 //(c) Valentin, 2016
 
 const int LEDPins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
 const int ButtonPins[] = {11, 12, 13}; //D11 - D13
                                        //D11 & D12 are for selection, D13 is for confirmation
-int LEDVals[] = {0, 0, 0, 0, 0, 0, 0, 0, 0); //Set the values of the LEDs
+int LEDVals[] = {0, 0, 0, 0, 0, 0, 0, 0, 0}; //Set the values of the LEDs
                                                    //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P3)
-bool Player //false = P1, true = P2
+bool Player; //false = P1, true = P2
 
 void setup()
 {
