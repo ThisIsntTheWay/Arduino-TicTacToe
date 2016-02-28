@@ -14,7 +14,7 @@ A 5V USB Power-Source is used.
 
 ##Assignations
 The LED Pins are assigned as shown in the table.
-The value on the **left** defines the Pin on the arduino and the value on the **right** specifies the position in the LEDPins[] array.
+The value on the **left** defines the Pin on the arduino and the value on the **right** specifies the position in the _LEDPins[]_ array.
 
 | Row 1 | Row 2 | Row 3 |
 |:-----:|:-----:|:-----:|
