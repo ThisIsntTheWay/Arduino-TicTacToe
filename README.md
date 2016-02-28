@@ -13,10 +13,11 @@ The components utilized in this project are **9** green LEDs with **2,9V** - **3
 A 5V USB Power-Source is used.
 
 ##Assignations
-The LED Pins are assigned as shown below:
+The LED Pins are assigned as shown in the table.
+The value on the **left** defines the Pin on the arduino and the value on the **right** specifies the position in the LEDPins[] array.
 
 | Row 1 | Row 2 | Row 3 |
 |:-----:|:-----:|:-----:|
-| D8 | D9 | D10 |
-| D5 | D6 | D7 |
-| D2 | D3 | D4 |
+| D8, 6 | D9, 7 | D10, 8 |
+| D5, 3 | D6, 4 | D7, 5 |
+| D2, 0 | D3, 1 | D4, 2 |
