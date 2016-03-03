@@ -195,36 +195,9 @@ void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
   }
 }
 //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
-
-void SetLED()
+void LEDEvent()
 {
-  if (LEDVals[Pos] == 2) { LEDVals[Pos] = 1; }
-  else if (LEDVals[Pos] == 4) {LEDVals[Pos] = 3; }
-  if ( Player = false ) { Player = true; }
-  else { Player = false; }
-}
-
-void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
-{
- /*if (Player = false ) { GridCheck(1); }
- else { GridCheck(3); }*/
-
- //Buttons are creating a flood of input and must be fixed!
- /*if (digitalRead(ButtonPins[0] == LOW)) { SelectLED(1); Serial.println("Button at D11 pressed."); }
- if (digitalRead(ButtonPins[1] == LOW)) { SelectLED(2); Serial.println("Button at D12 pressed."); }
- if (digitalRead(ButtonPins[2] == LOW)) { SetLED(); Serial.println("Button at D13 pressed."); }*/
- 
- for (int i=0; i<9; i++)
- {
-  //First if-statement is being executed, no matter what the condition.
-  /*if (LEDVals[i] == 0) 
-  {
-   digitalWrite(LEDPins[i], LOW);
-   Serial.print("[DEBUG] Pin at D");
-   Serial.print(LEDPins[i]);
-   Serial.println(" turned OFF.");
-  }*/
-  if (LEDVals[i] == 1) 
+  if (LEDVals[i] == 1)
   {
    digitalWrite(LEDPins[i], HIGH);
    delay(500);                     //Wait 0.5 seconds
@@ -264,6 +237,36 @@ void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
    Serial.print(LEDPins[i]);
    Serial.println(" selected. (P2)");
   }
+  else of (LEDVals[i] == 0) 
+  {
+   digitalWrite(LEDPins[i], LOW);
+   Serial.print("[DEBUG] Pin at D");
+   Serial.print(LEDPins[i]);
+   Serial.println(" turned OFF.");
+  }
+}
+  
+void SetLED()
+{
+  if (LEDVals[Pos] == 2) { LEDVals[Pos] = 1; }
+  else if (LEDVals[Pos] == 4) {LEDVals[Pos] = 3; }
+  if ( Player = false ) { Player = true; }
+  else { Player = false; }
+}
+
+void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
+{
+ /*if (Player = false ) { GridCheck(1); }
+ else { GridCheck(3); }*/
+
+ //Buttons are creating a flood of input and must be fixed!
+ /*if (digitalRead(ButtonPins[0] == LOW)) { SelectLED(1); Serial.println("Button at D11 pressed."); }
+ if (digitalRead(ButtonPins[1] == LOW)) { SelectLED(2); Serial.println("Button at D12 pressed."); }
+ if (digitalRead(ButtonPins[2] == LOW)) { SetLED(); Serial.println("Button at D13 pressed."); }*/
+ 
+ for (int i=0; i<9; i++)
+ {
+  //First if-statement is being executed, no matter what the condition.
  }
  delay(100);
  Serial.println("[DEBUG] loop() finished.");
