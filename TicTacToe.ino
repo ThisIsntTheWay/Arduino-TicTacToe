@@ -138,11 +138,36 @@ void GridCheck(int PCheck) //Check LED matrix if any Player got 3 in a row
 
 void UpPos() {Pos = Up + Right; Serial.println("Position Variable updated."); }
 
+void ResetLastLED()
+{
+ if (TPos != Pos)
+ {
+   if (LEDVals[TPos - 1] == 1 || 3)
+   {
+     Serial.println("[DEBUG] Previous LED is already assigned to a Player, skipping.");
+     TPos - 1;
+     ResetLastLED();
+   }
+   else if (LEDVals[TPos - 1] == 2 || 4)
+   {
+     if (LEDVals[TPos - 1] < 0)
+     {
+       TPos = 9;
+       Serial.println("[DEBUG] TPos lower than 0, setting value to 9.");
+       ResetLastLED();
+     }
+     else {
+     LEDVals[TPos - 1] == 0;
+     Serial.println("[DEBUG] Last moved LED set to 0"); //Overrides LED regardless of value and must be fixed.
+   }
+ }
+}
+
 void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
 {
   if (Dir == 1)
   {
-    if (Up < 3 ) { Up = 0; Serial.println("'Up' higher than 3, resetting to 0."); }
+    if (Up < 3 ) { Up = 0; Serial.println("'Up' higher than 3, resetting to 0."); UpPos(); }
     else if (Up > 3 )
     {
       Serial.println("[DEBUG] selected LED was moved up."); 
@@ -150,11 +175,11 @@ void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
       UpPos();
       Pos = TPos;
       if (Player = false) { LEDVals[Pos] = 2; }
-      else { LEDVals[Pos] = 4; } 
+      else { LEDVals[Pos] = 4; }
+      ResetLastLED();
     }
-    if (TPos != Pos) { LEDVals[TPos - 1] = 0; Serial.println("[DEBUG] Last moved LED set to 0"); } //Overrides LED regardless of value and must be fixed. 
   }
-  else
+  else if (Dir == 2)
   {
     if (Right < 3 ) { Right = 0; Serial.println("'Right' higher than 3, resetting to 0."); }
     else if (Right > 3 )
@@ -165,8 +190,8 @@ void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
       Pos = TPos;
       if (Player = false) { LEDVals[Pos] = 2;}
       else { LEDVals[Pos] = 4; } 
+      ResetLastLED();
     }
-    if (TPos != Pos) { LEDVals[TPos - 1] = 0; Serial.println("[DEBUG] Last moved LED set to 0"); } //Overrides LED regardless of value and must be fixed.
   }
 }
 //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
