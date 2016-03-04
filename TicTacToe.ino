@@ -159,8 +159,9 @@ void ResetLastLED()
      else {
      LEDVals[TPos - 1] == 0;
      Serial.println("[DEBUG] Last moved LED set to 0"); //Overrides LED regardless of value and must be fixed.
-   }
- }
+     }
+    }
+  }
 }
 
 void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
@@ -197,52 +198,55 @@ void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
 //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
 void LEDUpdate()
 {
-  if (LEDVals[i] == 1)
+  for (int i=0; i<9; i++)
   {
-   digitalWrite(LEDPins[i], HIGH);
-   delay(500);                     //Wait 0.5 seconds
-   digitalWrite(LEDPins[i], LOW);
-   delay(500);
-   Serial.print("[DEBUG] Pin at D");
-   Serial.print(LEDPins[i]);
-   Serial.println(" turned ON (P1).");
-  }
-  else if (LEDVals[i] == 3) 
-  {
-   digitalWrite(LEDPins[i], HIGH);
-   delay(250);                     //Wait 0.25 seconds
-   digitalWrite(LEDPins[i], LOW);
-   delay(250);
-   Serial.print("[DEBUG] Pin at D");
-   Serial.print(LEDPins[i]);
-   Serial.println(" turned ON (P2).");
-  }
-  else if (LEDVals[i] == 2)
-  {
-   digitalWrite(LEDPins[i], HIGH);
-   delay(1000);                    //Wait 1 second
-   digitalWrite(LEDPins[i], LOW);
-   delay(1000);
-   Serial.print("[DEBUG] Pin at D");
-   Serial.print(LEDPins[i]);
-   Serial.println(" selected. (P1)");
-  }
-  else if (LEDVals[i] == 4)
-  {
-   digitalWrite(LEDPins[i], HIGH);
-   delay(1000);                    //Wait 1 second
-   digitalWrite(LEDPins[i], LOW);
-   delay(1000);
-   Serial.print("[DEBUG] Pin at D");
-   Serial.print(LEDPins[i]);
-   Serial.println(" selected. (P2)");
-  }
-  else if (LEDVals[i] == 0) 
-  {
-   digitalWrite(LEDPins[i], LOW);
-   Serial.print("[DEBUG] Pin at D");
-   Serial.print(LEDPins[i]);
-   Serial.println(" turned OFF.");
+    if (LEDVals[i] == 1)
+    {
+     digitalWrite(LEDPins[i], HIGH);
+     delay(500);                     //Wait 0.5 seconds
+     digitalWrite(LEDPins[i], LOW);
+     delay(500);
+     Serial.print("[DEBUG] Pin at D");
+     Serial.print(LEDPins[i]);
+     Serial.println(" turned ON (P1).");
+    }
+    else if (LEDVals[i] == 3) 
+    {
+     digitalWrite(LEDPins[i], HIGH);
+     delay(250);                     //Wait 0.25 seconds
+     digitalWrite(LEDPins[i], LOW);
+     delay(250);
+     Serial.print("[DEBUG] Pin at D");
+     Serial.print(LEDPins[i]);
+     Serial.println(" turned ON (P2).");
+    }
+    else if (LEDVals[i] == 2)
+    {
+     digitalWrite(LEDPins[i], HIGH);
+     delay(1000);                    //Wait 1 second
+     digitalWrite(LEDPins[i], LOW);
+     delay(1000);
+     Serial.print("[DEBUG] Pin at D");
+     Serial.print(LEDPins[i]);
+     Serial.println(" selected. (P1)");
+    }
+    else if (LEDVals[i] == 4)
+    {
+     digitalWrite(LEDPins[i], HIGH);
+     delay(1000);                    //Wait 1 second
+     digitalWrite(LEDPins[i], LOW);
+     delay(1000);
+     Serial.print("[DEBUG] Pin at D");
+     Serial.print(LEDPins[i]);
+     Serial.println(" selected. (P2)");
+    }
+    else if (LEDVals[i] == 0) 
+    {
+     digitalWrite(LEDPins[i], LOW);
+     Serial.print("[DEBUG] Pin at D");
+     Serial.print(LEDPins[i]);
+     Serial.println(" turned OFF.");
+    } 
   }
 }
   
@@ -261,9 +265,9 @@ void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
  else { GridCheck(3); }*/
 
  //Buttons are creating a flood of input and must be fixed!
- /*if (digitalRead(ButtonPins[0] == LOW)) { SelectLED(1); Serial.println("Button at D11 pressed."); }
- if (digitalRead(ButtonPins[1] == LOW)) { SelectLED(2); Serial.println("Button at D12 pressed."); }
- if (digitalRead(ButtonPins[2] == LOW)) { SetLED(); Serial.println("Button at D13 pressed."); }*/
+ if (digitalRead(ButtonPins[0] == LOW)) { SelectLED(1); LEDUpdate(); Serial.println("Button at D11 pressed."); }
+ if (digitalRead(ButtonPins[1] == LOW)) { SelectLED(2); LEDUpdate(); Serial.println("Button at D12 pressed."); }
+ if (digitalRead(ButtonPins[2] == LOW)) { SetLED(); LEDUpdate(); Serial.println("Button at D13 pressed."); }
  
  for (int i=0; i<9; i++)
  {
