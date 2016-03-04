@@ -195,7 +195,7 @@ void SelectLED(int Dir) //Parameter indicates direction. 1 = Up, 2 = Right
   }
 }
 //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
-void LEDEvent()
+void LEDUpdate()
 {
   if (LEDVals[i] == 1)
   {
@@ -237,7 +237,7 @@ void LEDEvent()
    Serial.print(LEDPins[i]);
    Serial.println(" selected. (P2)");
   }
-  else of (LEDVals[i] == 0) 
+  else if (LEDVals[i] == 0) 
   {
    digitalWrite(LEDPins[i], LOW);
    Serial.print("[DEBUG] Pin at D");
@@ -246,12 +246,13 @@ void LEDEvent()
   }
 }
   
-void SetLED()
+void SetLED() //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
 {
   if (LEDVals[Pos] == 2) { LEDVals[Pos] = 1; }
   else if (LEDVals[Pos] == 4) {LEDVals[Pos] = 3; }
-  if ( Player = false ) { Player = true; }
-  else { Player = false; }
+  else if (LEDVals[Pos] == 1 || 3) {Serial.println("Cannot set LED to Player, as it is assigned already!"); }
+  if ( Player = false ) { Player = true; Serial.println("Players switched."); }
+  else { Player = false; Serial.println("Players switched."); }
 }
 
 void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
