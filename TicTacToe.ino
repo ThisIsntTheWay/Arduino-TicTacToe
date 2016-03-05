@@ -3,14 +3,15 @@
 //(c) Valentin, 2016
 
 const int LEDPins[] = {2, 3, 4, 5, 6, 7, 8, 9, 10}; //D2 - D10
-const int ButtonPins[] = {11, 12, 13}; //D11 - D13
-                                       //D11 & D12 are for selection, D13 is for confirmation
+const int ButtonPins[] = {14, 15, 16}; //A0 - A2
+                                       //A0 & A1 are for selection, A2 is for confirmation
 int LEDVals[] = {0, 0, 4, 0, 1, 0, 0, 2, 0}; //Set the values of the LEDs
                                              //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
 int Up = 0;
 int Right = 0;
 int Pos = 0;
 int TPos = 0;
+int loops = 1;
 
 bool Player = false; //false = P1, true = P2
 
@@ -27,7 +28,8 @@ void setup()
   }
   for (int i=0; i<3; i++) //Set all Buttons as INPUT
   {
-   pinMode(ButtonPins[i], INPUT);
+   pinMode(ButtonPins[i], INPUT_PULLUP);
+   digitalWrite(ButtonPins[i], HIGH);
   }
   Serial.println("LEDs have been set to OUTPUT and turned off.");
   Serial.println("Buttons have been set to INPUT.");
@@ -39,6 +41,7 @@ void WinAnimation(int Who) //"Animation" to play if either Player has won.
 {
  if (Who == 1) //If P1 won, make an "O"
  {
+  delay(1000);
   for (int i=0; i<9; i++) { digitalWrite(LEDPins[i], LOW); }
   digitalWrite(LEDPins[7], HIGH); //D9
   digitalWrite(LEDPins[3], HIGH); //D5
@@ -48,6 +51,7 @@ void WinAnimation(int Who) //"Animation" to play if either Player has won.
  }
  if (Who == 2) //If P2 won, make a "X"
  {
+  delay(1000);
   for (int i=0; i<9; i++) { digitalWrite(LEDPins[i], LOW); }
   digitalWrite(LEDPins[6], HIGH); //D8
   digitalWrite(LEDPins[4], HIGH); //D6
@@ -133,6 +137,7 @@ void GridCheck(int PCheck) //Check LED matrix if any Player got 3 in a row
     Serial.println(" has 3 LEDs in a Row!");
    }
   }
+  Serial.println("[DEBUG] No player won yet.");
   //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P3)
 }
 
@@ -156,9 +161,10 @@ void ResetLastLED()
        Serial.println("[DEBUG] TPos lower than 0, setting value to 9.");
        ResetLastLED();
      }
-     else {
-     LEDVals[TPos - 1] == 0;
-     Serial.println("[DEBUG] Last moved LED set to 0"); //Overrides LED regardless of value and must be fixed.
+     else
+     {
+       LEDVals[TPos - 1] == 0;
+       Serial.println("[DEBUG] Last moved LED set to 0"); //Overrides LED regardless of value and must be fixed.
      }
     }
   }
@@ -261,8 +267,10 @@ void SetLED() //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
 
 void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
 {
- /*if (Player = false ) { GridCheck(1); }
- else { GridCheck(3); }*/
+ if (loops > 1) { Serial.println(""); }
+ Serial.println("Loop nr." + loops);
+ if (Player = false ) { GridCheck(1); }
+ else { GridCheck(3); }
 
  //Buttons are creating a flood of input and must be fixed!
  if (digitalRead(ButtonPins[0] == LOW)) { SelectLED(1); LEDUpdate(); Serial.println("Button at D11 pressed."); }
@@ -275,4 +283,5 @@ void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
  }
  delay(100);
  Serial.println("[DEBUG] loop() finished.");
+ loops++;
 }
