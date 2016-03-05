@@ -34,7 +34,7 @@ void setup()
   Serial.println("LEDs have been set to OUTPUT and turned off.");
   Serial.println("Buttons have been set to INPUT.");
   Serial.println("The game is now ready to commence.");
-  Serial.println("-------------------[END ]-------------------");
+  Serial.println("-------------------[END]--------------------");
 }
 
 void WinAnimation(int Who) //"Animation" to play if either Player has won.
@@ -267,8 +267,11 @@ void SetLED() //0 = off, 1 = on (P1), 2 = sel (P1), 3 = on (P2), 4 = sel (P2)
 
 void loop() //D11 (0) & D12 (1) are for selection, D13 (2) is for confirmation
 {
- if (loops > 1) { Serial.println(""); }
- Serial.println("Loop nr." + loops);
+ if (loops > 1) { Serial.println("============================================"); }
+ 
+ Serial.print("Loop nr. ");
+ Serial.println(loops);
+ 
  if (Player = false ) { GridCheck(1); }
  else { GridCheck(3); }
 
