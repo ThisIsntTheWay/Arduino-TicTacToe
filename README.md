@@ -10,7 +10,7 @@ Players are referred to as **PX**. The **X** is replaced by either a **1** or a 
 ##Components
 The components utilized in this project are **9** green LEDs with **2,9V** - **3,5V** @ **20mA**, **9** **470Ω** resistors (for each LED) and **3** generic PCB push-buttons.
 
-For the power-source, a 5V USB "Powerbank" is used.
+For the power-source, a 5V, 1A USB Power supply is used, more than enough for this project.
 
 ##Assignations
 The LED Pins are assigned as shown in the table.
